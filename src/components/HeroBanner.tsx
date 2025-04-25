@@ -1,32 +1,29 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
-
 const HeroBanner = () => {
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+      contactSection.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
-
-  return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+  return <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <div
-          className="w-full h-full bg-cover bg-center"
-          style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop")',
-          }}
-        >
+        <div className="w-full h-full bg-cover bg-center" style={{
+        backgroundImage: 'url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop")'
+      }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
         </div>
       </div>
 
       {/* Content */}
       <div className="container relative z-10 text-white px-4 sm:px-6 text-center md:text-left">
-        <div className="max-w-4xl animate-fade-in opacity-0" style={{animationDelay: '0.3s'}}>
+        <div className="max-w-4xl animate-fade-in opacity-0" style={{
+        animationDelay: '0.3s'
+      }}>
           <h1 className="font-montserrat font-bold text-4xl sm:text-5xl md:text-6xl mb-6">
             High-Ticket Sales Closer
             <span className="block text-xl sm:text-2xl md:text-3xl mt-2 text-resume-lightblue">
@@ -40,17 +37,12 @@ const HeroBanner = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button
-              onClick={scrollToContact}
-              className="bg-resume-blue hover:bg-resume-blue/90 text-white font-semibold py-6 px-8 text-lg"
-            >
+            <Button onClick={scrollToContact} className="bg-resume-blue hover:bg-resume-blue/90 text-white font-semibold py-6 px-8 text-lg">
               Let's Close Together
             </Button>
-            <Button
-              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-              variant="outline"
-              className="border-white text-white hover:bg-white/10 font-medium py-6 px-8 text-lg"
-            >
+            <Button onClick={() => document.getElementById('about')?.scrollIntoView({
+            behavior: 'smooth'
+          })} variant="outline" className="border-white text-white font-medium py-6 px-8 text-lg bg-resume-blue">
               Learn More
             </Button>
           </div>
@@ -63,8 +55,6 @@ const HeroBanner = () => {
           <div className="w-1.5 h-3 bg-white/70 rounded-full animate-[scroll_1.5s_infinite]"></div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroBanner;
