@@ -1,21 +1,14 @@
-
 import React from 'react';
 import { User, Star, Calendar } from 'lucide-react';
-
 const AboutMe = () => {
-  return (
-    <section id="about" className="py-24 bg-white">
+  return <section id="about" className="py-24 bg-white">
       <div className="container px-4 sm:px-6">
         <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-center">
           <div className="w-full md:w-2/5" data-animate="fade-in">
             <div className="relative">
               <div className="bg-resume-blue/10 absolute -top-6 -left-6 w-full h-full rounded-lg"></div>
               <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-xl">
-                <img
-                  src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=1780&auto=format&fit=crop"
-                  alt="Sales Professional"
-                  className="w-full h-full object-cover"
-                />
+                <img alt="Sales Professional" src="/lovable-uploads/22f50ebe-5247-40d3-abfb-f983f5b1598b.jpg" className="w-full h-full object-none" />
               </div>
             </div>
           </div>
@@ -60,8 +53,6 @@ const AboutMe = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default AboutMe;
