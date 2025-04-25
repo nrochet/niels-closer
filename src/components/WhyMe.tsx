@@ -1,37 +1,27 @@
-
 import React from 'react';
-
 const WhyMe = () => {
-  const skills = [
-    {
-      title: "Airbnb Market Expertise",
-      percentage: 95,
-      description: "Comprehensive understanding of the short-term rental marketplace and its investment potential."
-    },
-    {
-      title: "Negotiation Skills",
-      percentage: 90,
-      description: "Expert at finding win-win scenarios that maximize value for all parties."
-    },
-    {
-      title: "Investment Analysis",
-      percentage: 85,
-      description: "Ability to identify profitable properties and calculate potential ROI accurately."
-    },
-    {
-      title: "Client Relationship Management",
-      percentage: 98,
-      description: "Building trust and maintaining long-term partnerships with investors."
-    },
-    {
-      title: "Closing Techniques",
-      percentage: 92,
-      description: "Proven methods for overcoming objections and finalizing high-value deals."
-    },
-  ];
-
-  return (
-    <section id="why-me" className="py-24 bg-resume-blue relative overflow-hidden">
+  const skills = [{
+    title: "Airbnb Market Expertise",
+    percentage: 95,
+    description: "Comprehensive understanding of the short-term rental marketplace and its investment potential."
+  }, {
+    title: "Negotiation Skills",
+    percentage: 90,
+    description: "Expert at finding win-win scenarios that maximize value for all parties."
+  }, {
+    title: "Investment Analysis",
+    percentage: 85,
+    description: "Ability to identify profitable properties and calculate potential ROI accurately."
+  }, {
+    title: "Client Relationship Management",
+    percentage: 98,
+    description: "Building trust and maintaining long-term partnerships with investors."
+  }, {
+    title: "Closing Techniques",
+    percentage: 92,
+    description: "Proven methods for overcoming objections and finalizing high-value deals."
+  }];
+  return <section id="why-me" className="py-24 bg-resume-blue relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-y-0 left-0 w-1/3 bg-white/10"></div>
@@ -41,9 +31,7 @@ const WhyMe = () => {
 
       <div className="container px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-4 text-white">
-            Why Me for Airbnb Investing
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-4 text-white">A bit about me</h2>
           <p className="text-blue-100 max-w-3xl mx-auto font-inter">
             I bridge the gap between sales expertise and Airbnb investment knowledge, helping you maximize your portfolio's potential.
           </p>
@@ -75,26 +63,21 @@ const WhyMe = () => {
           </div>
 
           <div className="space-y-8">
-            {skills.map((skill, index) => (
-              <div key={index} className="mb-6">
+            {skills.map((skill, index) => <div key={index} className="mb-6">
                 <div className="flex justify-between mb-2">
                   <span className="text-white font-semibold">{skill.title}</span>
                   <span className="text-white">{skill.percentage}%</span>
                 </div>
                 <div className="w-full bg-blue-900 rounded-full h-2.5">
-                  <div
-                    className="bg-white h-2.5 rounded-full"
-                    style={{ width: `${skill.percentage}%` }}
-                  ></div>
+                  <div className="bg-white h-2.5 rounded-full" style={{
+                width: `${skill.percentage}%`
+              }}></div>
                 </div>
                 <p className="text-blue-100 text-sm mt-2">{skill.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default WhyMe;
