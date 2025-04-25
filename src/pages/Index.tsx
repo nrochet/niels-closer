@@ -24,7 +24,8 @@ const Index = () => {
         if (position.top < window.innerHeight - 100) {
           const animation = element.getAttribute("data-animate");
           element.classList.add(`animate-${animation}`);
-          element.style.opacity = "1";
+          // Cast the element to HTMLElement to access style property
+          (element as HTMLElement).style.opacity = "1";
           element.removeAttribute("data-animate");
         }
       });
