@@ -1,12 +1,54 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useEffect } from "react";
+import Header from "@/components/Header";
+import HeroBanner from "@/components/HeroBanner";
+import AboutMe from "@/components/AboutMe";
+import TrackRecord from "@/components/TrackRecord";
+import WhyMe from "@/components/WhyMe";
+import VideoIntro from "@/components/VideoIntro";
+import Testimonials from "@/components/Testimonials";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Index = () => {
+  useScrollAnimation();
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const elements = document.querySelectorAll("[data-animate]");
+      elements.forEach((element) => {
+        const position = element.getBoundingClientRect();
+        
+        // If element is in viewport
+        if (position.top < window.innerHeight - 100) {
+          const animation = element.getAttribute("data-animate");
+          element.classList.add(`animate-${animation}`);
+          element.style.opacity = "1";
+          element.removeAttribute("data-animate");
+        }
+      });
+    };
+    
+    // Initial check
+    handleScroll();
+    
+    // Add scroll event
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="bg-white min-h-screen">
+      <Header />
+      <HeroBanner />
+      <AboutMe />
+      <TrackRecord />
+      <WhyMe />
+      <VideoIntro />
+      <Testimonials />
+      <Contact />
+      <Footer />
     </div>
   );
 };
