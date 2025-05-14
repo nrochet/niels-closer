@@ -30,7 +30,7 @@ const AboutMe = () => {
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <User size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal">Consultative Sales</h3>
+                <h3 className="font-montserrat font-bold text-resume-charcoal">Sales</h3>
                 <p className="text-gray-600 text-center text-sm mt-2">Value-based approach</p>
               </div>
 
