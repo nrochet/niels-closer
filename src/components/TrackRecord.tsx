@@ -7,15 +7,11 @@ const TrackRecord = () => {
     description: "Client Satisfaction Rate",
     detail: "Maintaining exceptional client relationships"
   }, {
-    metric: "$3.2M+",
-    description: "Revenue Generated",
-    detail: "For clients in the last 24 months"
-  }, {
-    metric: "42%",
+    metric: "62%",
     description: "Conversion Rate",
     detail: "Double the industry average"
   }, {
-    metric: "150+",
+    metric: "101+",
     description: "Deals Closed",
     detail: "Across real estate and solar industries"
   }, {
@@ -81,7 +77,7 @@ const TrackRecord = () => {
                 <span className="text-resume-blue text-2xl font-bold">$</span>
               </div>
               <h3 className="text-xl font-semibold mb-2">Average Deal Size</h3>
-              <p className="text-3xl font-bold text-resume-blue">$42,500</p>
+              <p className="text-3xl font-bold text-resume-blue">$10,500</p>
               <p className="text-gray-500 mt-2 text-center">Specializing in high-ticket opportunities</p>
             </div>
           </div>
