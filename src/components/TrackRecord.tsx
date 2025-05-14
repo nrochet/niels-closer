@@ -9,7 +9,7 @@ const TrackRecord = () => {
   }, {
     metric: "62%",
     description: "Conversion Rate",
-    detail: "Double the industry average"
+    detail: "Double the industry average performance"
   }, {
     metric: "101+",
     description: "Deals Closed",
