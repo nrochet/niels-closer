@@ -14,8 +14,7 @@ const TrackRecord = () => {
     metric: "101+",
     description: "Deals Closed",
     detail: "Across real estate and solar industries"
-  }
-  ];
+  }];
   const companies = [{
     name: "Sunrun",
     logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sunrun_logo.svg/1280px-Sunrun_logo.svg.png"
