@@ -17,7 +17,7 @@ const TrackRecord = () => {
   }];
   const companies = [{
     name: "Sunrun",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sunrun_logo.svg/1280px-Sunrun_logo.svg.png"
+    logo: "https://cdn.brandfetch.io/idfqgwcqy_/w/400/h/400/theme/dark/icon.png?c=1dxbfHSJFAPEGdCLU4o5B"
   }, {
     name: "Company 2",
     logo: "https://placehold.co/200x100?text=Company+Logo"
