@@ -28,24 +28,24 @@ const AboutMe = () => {
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <User size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal">5+ Years in High-Ticket Sales </h3>
-                <p className="text-gray-600 text-center text-sm mt-2"> Client consultations that focus on ROI and trust </p>
+                <h3 className="font-montserrat font-bold text-resume-charcoal">High-Ticket Sales Expertise </h3>
+                <p className="text-gray-600 text-center text-sm mt-2"> 5+ years closing deals priced $20k-$70k through ROI-driven consultations. </p>
               </div>
 
               <div className="flex flex-col items-center p-6 bg-resume-lightgrey rounded-lg shadow-sm transition-all hover:shadow-md">
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <Star size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal">Results You Can Measure</h3>
-                <p className="text-gray-600 text-center text-sm mt-2"> Boost your enrollments and achieve six-figure launches in less than 90 days</p>
+                <h3 className="font-montserrat font-bold text-resume-charcoal">Results You Can Measure</h3> 
+                <p className="text-gray-600 text-center text-sm mt-2"> Boost your enrollments and revenue in under than 90 days with proven sales strategies</p>
               </div>
 
               <div className="flex flex-col items-center p-6 bg-resume-lightgrey rounded-lg shadow-sm transition-all hover:shadow-md">
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <Calendar size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal">Full-Service Offering</h3>
-                <p className="text-gray-600 text-center text-sm mt-2">Get scalable sales systems, 1:1 funnel & script optimization, white-glove lead nurturing and much more </p>
+                <h3 className="font-montserrat font-bold text-resume-charcoal">Full-Sales Cycle Support </h3>
+                <p className="text-gray-600 text-center text-sm mt-2"> Build and optimize every step of your high-ticket sales funnel with scalable systems from lead qualification to close </p>
               </div>
             </div>
           </div>
