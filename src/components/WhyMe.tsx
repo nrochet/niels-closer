@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 const WhyMe = () => {
+  const skillsRef = useRef<HTMLDivElement>(null);
+  
   const skills = [{
     title: "Airbnb Market Expertise",
     percentage: 95,
@@ -24,6 +27,31 @@ const WhyMe = () => {
     percentage: 92,
     description: "Proven methods for overcoming objections and finalizing high-value deals."
   }];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setTimeout(() => {
+          const progressBars = document.querySelectorAll('.progress-bar');
+          progressBars.forEach((bar, index) => {
+            setTimeout(() => {
+              (bar as HTMLElement).style.width = `${skills[index].percentage}%`;
+            }, 300 + index * 150);
+          });
+        }, 500);
+      }
+    }, { threshold: 0.1 });
+
+    if (skillsRef.current) {
+      observer.observe(skillsRef.current);
+    }
+
+    return () => {
+      if (skillsRef.current) {
+        observer.unobserve(skillsRef.current);
+      }
+    };
+  }, [skills]);
   
   return (
     <section id="why-me" className="py-24 bg-gradient-to-br from-resume-blue to-blue-900 relative overflow-hidden">
@@ -86,7 +114,7 @@ const WhyMe = () => {
             </CardContent>
           </Card>
 
-          <div className="space-y-8" data-animate="fade-in">
+          <div className="space-y-8" data-animate="fade-in" ref={skillsRef}>
             {skills.map((skill, index) => (
               <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/15">
                 <div className="flex justify-between items-center mb-3">
@@ -95,17 +123,10 @@ const WhyMe = () => {
                     <h3 className="text-white font-semibold text-lg">{skill.title}</h3>
                   </div>
                 </div>
-                <div className="w-full bg-blue-900/50 rounded-full h-2.5 mb-4">
+                <div className="w-full bg-blue-900/30 rounded-full h-3 mb-4 overflow-hidden">
                   <div 
-                    className="bg-white h-2.5 rounded-full transition-all duration-1000" 
-                    style={{width: '0%'}}
-                    onLoad={(e) => {
-                      setTimeout(() => {
-                        if (e.target) {
-                          (e.target as HTMLDivElement).style.width = `${skill.percentage}%`;
-                        }
-                      }, 300 + index * 100);
-                    }}
+                    className="progress-bar bg-gradient-to-r from-blue-300 to-white h-full rounded-full transition-all duration-1000 ease-out"
+                    style={{ width: '0%' }}
                   />
                 </div>
                 <p className="text-blue-100 text-sm">{skill.description}</p>
