@@ -42,7 +42,7 @@ const HeroBanner = () => {
             </Button>
             <Button onClick={() => document.getElementById('about')?.scrollIntoView({
             behavior: 'smooth'
-          })} variant="outline" className="border-white text-white font-medium py-6 px-8 text-lg bg-resume-blue">
+          })} variant="outline" className="text-white font-medium py-6 px-8 text-lg bg-resume-blue border-0">
               Learn More
             </Button>
           </div>
