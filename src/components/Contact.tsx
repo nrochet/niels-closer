@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, Linkedin, User } from 'lucide-react';
+import { Mail, Phone, User, CalendarClock } from 'lucide-react';
 
 const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,40 +23,17 @@ const Contact = () => {
               Ready to take your Airbnb investment portfolio to the next level? Let's discuss how my high-ticket closing expertise can help you secure the best properties and partnerships.
             </p>
 
-            <div className="space-y-6 mb-8">
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
-                  <Mail size={18} className="text-resume-blue" />
+            {/* Schedule a call box - enhanced and more prominent */}
+            <div className="p-8 border border-gray-200 rounded-xl bg-white shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
+                  <CalendarClock size={24} className="text-resume-blue" />
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-medium">carhop.consult-0n@icloud.com</p>
-                </div>
+                <h3 className="text-xl font-bold">Schedule a Call</h3>
               </div>
-
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
-                  <Phone size={18} className="text-resume-blue" />
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
-                  <Linkedin size={18} className="text-resume-blue" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">LinkedIn</p>
-                  <a href="#" className="font-medium text-resume-blue hover:underline">linkedin.com/in/salescloser</a>
-                </div>
-              </div>
-            </div>
-
-            {/* Calendar widget placeholder */}
-            <div className="p-6 border border-gray-200 rounded-lg bg-gray-50 text-center">
-              <h3 className="font-semibold mb-2">Schedule a Call</h3>
-              <p className="text-sm text-gray-600 mb-4">Book a 30-minute consultation</p>
-              <Button className="bg-resume-blue hover:bg-resume-blue/90 text-white">
-                Open Calendar
+              <p className="text-gray-600 mb-6">Book a 30-minute consultation to discuss your investment goals and how I can help you achieve them.</p>
+              <Button className="w-full py-6 bg-resume-blue hover:bg-resume-blue/90 text-white font-semibold text-base">
+                Open My Calendar
               </Button>
             </div>
           </div>
