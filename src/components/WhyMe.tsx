@@ -72,7 +72,7 @@ const WhyMe = () => {
           <h2 className="text-3xl md:text-5xl font-bold font-montserrat mb-4 text-white">A Bit About Me</h2>
           <div className="w-24 h-1 bg-white mx-auto mb-6"></div>
           <p className="text-blue-100 max-w-3xl mx-auto font-inter text-lg">
-            I bridge the gap between sales expertise and Airbnb investment knowledge, helping you grow your pipeline fast.
+            I bridge the gap between sales expertise and Airbnb investment knowledge, helping you maximize your portfolio's potential.
           </p>
         </div>
 
