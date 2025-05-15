@@ -30,7 +30,7 @@ const FluidBackground = ({
     canvas.height = window.innerHeight;
     
     // Configure WebGL context
-    const params = {
+    const params: WebGLContextAttributes = {
       alpha: true,
       depth: false,
       stencil: false,
@@ -38,7 +38,10 @@ const FluidBackground = ({
       preserveDrawingBuffer: false,
     };
     
-    const gl = canvas.getContext("webgl2", params) || canvas.getContext("webgl", params);
+    // Explicitly get WebGL context to avoid TypeScript errors
+    const gl = canvas.getContext("webgl2", params) || 
+               canvas.getContext("webgl", params) as WebGLRenderingContext | null;
+               
     if (!gl) {
       console.error("WebGL not supported");
       return;
@@ -46,11 +49,11 @@ const FluidBackground = ({
 
     // Initialize WebGL extensions and capabilities
     const isWebGL2 = canvas.getContext("webgl2") !== null;
-    let halfFloat;
-    let supportLinearFiltering;
+    let halfFloat: any;
+    let supportLinearFiltering: any;
     
     if (isWebGL2) {
-      gl.getExtension("EXT_color_buffer_float");
+      (gl as WebGL2RenderingContext).getExtension("EXT_color_buffer_float");
       supportLinearFiltering = gl.getExtension("OES_texture_float_linear");
     } else {
       halfFloat = gl.getExtension("OES_texture_half_float");
@@ -60,13 +63,16 @@ const FluidBackground = ({
     gl.clearColor(0.0, 0.0, 0.0, transparent ? 0.0 : 1.0);
     
     // Define data types and formats
-    const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : halfFloat?.HALF_FLOAT_OES;
-    let formatRGBA, formatRG, formatR;
+    const halfFloatTexType = isWebGL2 ? (gl as WebGL2RenderingContext).HALF_FLOAT : halfFloat?.HALF_FLOAT_OES;
+    let formatRGBA: { internalFormat: number, format: number } | null;
+    let formatRG: { internalFormat: number, format: number } | null;
+    let formatR: { internalFormat: number, format: number } | null;
     
     if (isWebGL2) {
-      formatRGBA = getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, halfFloatTexType);
-      formatRG = getSupportedFormat(gl, gl.RG16F, gl.RG, halfFloatTexType);
-      formatR = getSupportedFormat(gl, gl.R16F, gl.RED, halfFloatTexType);
+      const gl2 = gl as WebGL2RenderingContext;
+      formatRGBA = getSupportedFormat(gl, gl2.RGBA16F, gl.RGBA, halfFloatTexType);
+      formatRG = getSupportedFormat(gl, gl2.RG16F, gl2.RG, halfFloatTexType);
+      formatR = getSupportedFormat(gl, gl2.R16F, gl2.RED, halfFloatTexType);
     } else {
       formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
       formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
@@ -74,18 +80,20 @@ const FluidBackground = ({
     }
     
     // Helper function to check format support
-    function getSupportedFormat(gl, internalFormat, format, type) {
+    function getSupportedFormat(gl: WebGLRenderingContext, internalFormat: number, format: number, type: number) {
       if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
         switch (internalFormat) {
-          case gl.R16F: return getSupportedFormat(gl, gl.RG16F, gl.RG, type);
-          case gl.RG16F: return getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, type);
+          case (gl as WebGL2RenderingContext).R16F: 
+            return getSupportedFormat(gl, (gl as WebGL2RenderingContext).RG16F, (gl as WebGL2RenderingContext).RG, type);
+          case (gl as WebGL2RenderingContext).RG16F: 
+            return getSupportedFormat(gl, (gl as WebGL2RenderingContext).RGBA16F, gl.RGBA, type);
           default: return null;
         }
       }
       return { internalFormat, format };
     }
     
-    function supportRenderTextureFormat(gl, internalFormat, format, type) {
+    function supportRenderTextureFormat(gl: WebGLRenderingContext, internalFormat: number, format: number, type: number) {
       const texture = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
@@ -241,7 +249,7 @@ const FluidBackground = ({
           float decay = 1.0 + dissipation * dt;
           gl_FragColor = result / decay;
       }
-    `, supportLinearFiltering ? null : ["MANUAL_FILTERING"]);
+    `, supportLinearFiltering ? undefined : ["MANUAL_FILTERING"]);
     
     // Other shader definitions
     const divergenceShader = compileShader(gl, gl.FRAGMENT_SHADER, `
@@ -368,10 +376,12 @@ const FluidBackground = ({
       }
     `);
     
-    // Updated compileShader function with proper error handling
-    function compileShader(gl, type, source, keywords) {
+    // Updated compileShader function with proper error handling and typing
+    function compileShader(gl: WebGLRenderingContext, type: number, source: string, keywords?: string[] | undefined): WebGLShader | null {
       source = addKeywords(source, keywords);
       const shader = gl.createShader(type);
+      if (!shader) return null;
+      
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       
@@ -384,7 +394,7 @@ const FluidBackground = ({
       return shader;
     }
     
-    function addKeywords(source, keywords) {
+    function addKeywords(source: string, keywords?: string[]): string {
       if (!keywords) return source;
       let keywordsString = "";
       keywords.forEach(keyword => {
@@ -395,7 +405,13 @@ const FluidBackground = ({
 
     // Material and program classes with improved error handling
     class Material {
-      constructor(vertexShader, fragmentShaderSource) {
+      vertexShader: WebGLShader;
+      fragmentShaderSource: string;
+      programs: any[];
+      activeProgram: WebGLProgram | null;
+      uniforms: any[];
+
+      constructor(vertexShader: WebGLShader, fragmentShaderSource: string) {
         this.vertexShader = vertexShader;
         this.fragmentShaderSource = fragmentShaderSource;
         this.programs = [];
@@ -403,7 +419,7 @@ const FluidBackground = ({
         this.uniforms = [];
       }
       
-      setKeywords(keywords) {
+      setKeywords(keywords: string[]) {
         let hash = 0;
         for (let i = 0; i < keywords.length; i++) {
           hash += hashCode(keywords[i]);
@@ -440,7 +456,10 @@ const FluidBackground = ({
     }
 
     class Program {
-      constructor(vertexShader, fragmentShader) {
+      uniforms: any;
+      program: WebGLProgram | null;
+
+      constructor(vertexShader: WebGLShader, fragmentShader: WebGLShader) {
         this.uniforms = {};
         this.program = createProgram(vertexShader, fragmentShader);
         
@@ -461,13 +480,18 @@ const FluidBackground = ({
     }
     
     // Improved createProgram with better error handling
-    function createProgram(vertexShader, fragmentShader) {
+    function createProgram(vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram | null {
       if (!vertexShader || !fragmentShader) {
         console.error("Cannot create program: shaders are null");
         return null;
       }
       
       const program = gl.createProgram();
+      if (!program) {
+        console.error("Failed to create WebGL program");
+        return null;
+      }
+      
       gl.attachShader(program, vertexShader);
       gl.attachShader(program, fragmentShader);
       gl.linkProgram(program);
@@ -482,7 +506,7 @@ const FluidBackground = ({
     }
     
     // Improved getUniforms with better error handling
-    function getUniforms(program) {
+    function getUniforms(program: WebGLProgram) {
       if (!program) {
         console.error("Cannot get uniforms: program is null");
         return {};
@@ -495,14 +519,14 @@ const FluidBackground = ({
         const uniformInfo = gl.getActiveUniform(program, i);
         if (uniformInfo) {
           const uniformName = uniformInfo.name;
-          uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+          (uniforms as any)[uniformName] = gl.getUniformLocation(program, uniformName);
         }
       }
       
       return uniforms;
     }
     
-    function hashCode(s) {
+    function hashCode(s: string): number {
       if (s.length === 0) return 0;
       let hash = 0;
       for (let i = 0; i < s.length; i++) {
@@ -544,7 +568,7 @@ const FluidBackground = ({
     }
     
     // Framebuffer setup
-    function getResolution(resolution) {
+    function getResolution(resolution: number) {
       let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
       if (aspectRatio < 1) aspectRatio = 1.0 / aspectRatio;
       
@@ -557,9 +581,21 @@ const FluidBackground = ({
         return { width: min, height: max };
     }
     
-    function createFBO(w, h, internalFormat, format, type, param) {
+    interface FBO {
+      texture: WebGLTexture;
+      fbo: WebGLFramebuffer;
+      width: number;
+      height: number;
+      texelSizeX: number;
+      texelSizeY: number;
+      attach: (id: number) => number;
+    }
+    
+    function createFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO | null {
       gl.activeTexture(gl.TEXTURE0);
       let texture = gl.createTexture();
+      if (!texture) return null;
+      
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
@@ -568,6 +604,8 @@ const FluidBackground = ({
       gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
       
       const fbo = gl.createFramebuffer();
+      if (!fbo) return null;
+      
       gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
       gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
       gl.viewport(0, 0, w, h);
@@ -591,9 +629,21 @@ const FluidBackground = ({
       };
     }
     
-    function createDoubleFBO(w, h, internalFormat, format, type, param) {
+    interface DoubleFBO {
+      read: FBO;
+      write: FBO;
+      width: number;
+      height: number;
+      texelSizeX: number;
+      texelSizeY: number;
+      swap: () => void;
+    }
+    
+    function createDoubleFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): DoubleFBO | null {
       let fbo1 = createFBO(w, h, internalFormat, format, type, param);
       let fbo2 = createFBO(w, h, internalFormat, format, type, param);
+      
+      if (!fbo1 || !fbo2) return null;
       
       return {
         read: fbo1,
@@ -611,15 +661,28 @@ const FluidBackground = ({
     }
     
     // Vertex setup
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    const buffer = gl.createBuffer();
+    if (!buffer) {
+      console.error("Failed to create buffer");
+      return;
+    }
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+    
+    const indexBuffer = gl.createBuffer();
+    if (!indexBuffer) {
+      console.error("Failed to create index buffer");
+      return;
+    }
+    
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
     gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(0);
     
     // Blit function
-    function blit(target) {
+    function blit(target?: FBO | null) {
       gl.bindFramebuffer(gl.FRAMEBUFFER, target ? target.fbo : null);
       gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
     }
@@ -629,24 +692,28 @@ const FluidBackground = ({
     const dyeRes = getResolution(dyeResolution);
     
     const texType = halfFloatTexType;
-    const rgba = formatRGBA;
-    const rg = formatRG;
-    const r = formatR;
-    
-    // Check if we have valid format information
-    if (!rgba || !rg || !r) {
+    if (!formatRGBA || !formatRG || !formatR) {
       console.error("Could not find compatible texture formats");
       return;
     }
     
+    const rgba = formatRGBA;
+    const rg = formatRG;
+    const r = formatR;
+    
     const filtering = supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
     
-    let dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
-    let velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
-    let divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-    let curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-    let pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-    let blur = createFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+    const dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+    const velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+    const divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    const curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    const pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    const blur = createFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+    
+    if (!dye || !velocity || !divergence || !curl || !pressure || !blur) {
+      console.error("Failed to create framebuffers");
+      return;
+    }
     
     // Update display material keywords
     function updateKeywords() {
@@ -656,14 +723,7 @@ const FluidBackground = ({
     }
     
     // Main simulation step
-    function step(dt) {
-      if (!curlProgram.program || !vorticityProgram.program || 
-          !divergenceProgram.program || !pressureProgram.program || 
-          !gradientSubtractProgram.program || !advectionProgram.program) {
-        console.error("Missing required programs for simulation step");
-        return;
-      }
-      
+    function step(dt: number) {
       gl.disable(gl.BLEND);
       
       // Curl calculation
@@ -771,7 +831,7 @@ const FluidBackground = ({
     }
     
     // Create splat effect
-    function splat(x, y, dx, dy, color) {
+    function splat(x: number, y: number, dx: number, dy: number, color: {r: number, g: number, b: number}) {
       if (!splatProgram.program) {
         console.error("Cannot create splat: splat program is null");
         return;
@@ -792,7 +852,7 @@ const FluidBackground = ({
       dye.swap();
     }
     
-    function correctRadius(radius) {
+    function correctRadius(radius: number): number {
       let aspectRatio = canvas.width / canvas.height;
       if (aspectRatio > 1) radius *= aspectRatio;
       return radius;
@@ -805,7 +865,6 @@ const FluidBackground = ({
     
     // Automatic splats for background motion
     let lastTime = Date.now();
-    let colorIndex = 0;
     
     function autoSplat() {
       const t = Date.now() / 1000;
@@ -840,7 +899,7 @@ const FluidBackground = ({
     }
     
     // Animation loop
-    let animationFrameId;
+    let animationFrameId: number;
     
     function animate() {
       const now = Date.now();
