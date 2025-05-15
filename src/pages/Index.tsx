@@ -6,7 +6,7 @@ import TrackRecord from "@/components/TrackRecord";
 import WhyMe from "@/components/WhyMe";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import FluidBackground from "@/components/FluidBackground";
+import FluidBackground from "@/components/Fluid Background";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Index = () => {
