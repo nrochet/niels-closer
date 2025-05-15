@@ -20,7 +20,7 @@ const TrackRecord = () => {
     logo: "https://cdn.brandfetch.io/idfqgwcqy_/w/400/h/400/theme/dark/icon.png?c=1dxbfHSJFAPEGdCLU4o5B"
   }, {
     name: "SGI Brokers",
-    logo: "src/company logos/SGI brokers.png"
+    logo: "https://github.com/nrochet/niels-closer/blob/main/src/company%20logos/SGI%20brokers.png?raw=true"
   }, {
     name: "Company 3",
     logo: "https://placehold.co/200x100?text=Company+Logo"
