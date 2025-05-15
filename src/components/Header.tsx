@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -40,7 +39,7 @@ const Header = () => {
         </div>
         
         <nav className="hidden md:flex space-x-6">
-          {['about', 'track-record', 'why-me', 'testimonials', 'contact'].map((item) => (
+          {['about', 'track-record', 'why-me', 'contact'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
