@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import AboutMe from "@/components/AboutMe";
+import VideoIntro from "@/components/VideoIntro";
 import TrackRecord from "@/components/TrackRecord";
 import WhyMe from "@/components/WhyMe";
 import Testimonials from "@/components/Testimonials";
