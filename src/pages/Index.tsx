@@ -1,12 +1,9 @@
-
 import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import AboutMe from "@/components/AboutMe";
-import VideoIntro from "@/components/VideoIntro";
 import TrackRecord from "@/components/TrackRecord";
 import WhyMe from "@/components/WhyMe";
-import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
@@ -46,8 +43,6 @@ const Index = () => {
       <AboutMe />
       <TrackRecord />
       <WhyMe />
-      <VideoIntro />
-      <Testimonials />
       <Contact />
       <Footer />
     </div>
