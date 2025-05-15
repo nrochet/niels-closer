@@ -80,11 +80,11 @@ const TrackRecord = () => {
           <div className="bg-white p-8 rounded-lg shadow-md transition-all hover:-translate-y-1 hover:shadow-lg">
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-resume-blue/10 flex items-center justify-center mb-4">
-                <span className="text-resume-blue text-2xl font-bold">%</span>
+                <span className="text-resume-blue text-2xl font-bold">⏱️</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Growth Rate YoY</h3>
-              <p className="text-3xl font-bold text-resume-blue">27%</p>
-              <p className="text-gray-500 mt-2 text-center">Consistent performance improvement</p>
+              <h3 className="text-xl font-semibold mb-2">Average Deal Cycle Time</h3>
+              <p className="text-3xl font-bold text-resume-blue">15 days</p>
+              <p className="text-gray-500 mt-2 text-center">Efficient closing process</p>
             </div>
           </div>
           
