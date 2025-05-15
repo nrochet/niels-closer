@@ -35,7 +35,7 @@ const Contact = () => {
                 </div>
                 <h3 className="text-xl font-bold">Schedule a Call</h3>
               </div>
-              <p className="text-gray-600 mb-6">Book a 30-minute consultation to discuss your investment goals and how I can help you achieve them.</p>
+              <p className="text-gray-600 mb-6">Book a 30-minute consultation to discuss your revenue goals and how I can help you achieve them.</p>
               <Button 
                 className="w-full py-6 bg-resume-blue hover:bg-resume-blue/90 text-white font-semibold text-base"
                 onClick={openCalendly}
