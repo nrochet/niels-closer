@@ -19,8 +19,8 @@ const TrackRecord = () => {
     name: "Sunrun",
     logo: "https://cdn.brandfetch.io/idfqgwcqy_/w/400/h/400/theme/dark/icon.png?c=1dxbfHSJFAPEGdCLU4o5B"
   }, {
-    name: "Company 2",
-    logo: "https://placehold.co/200x100?text=Company+Logo"
+    name: "SGI Brokers",
+    logo: "src/company logos/SGI brokers.png"
   }, {
     name: "Company 3",
     logo: "https://placehold.co/200x100?text=Company+Logo"
