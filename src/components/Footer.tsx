@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { Linkedin, Mail } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -19,20 +17,6 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-end">
-            <div className="flex space-x-4 mb-4">
-              <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-resume-blue transition-colors"
-              >
-                <Linkedin size={16} />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-resume-blue transition-colors"
-              >
-                <Mail size={16} />
-              </a>
-            </div>
             <p className="text-gray-400 text-sm">
               &copy; {currentYear} Sales Closer. All rights reserved.
             </p>
