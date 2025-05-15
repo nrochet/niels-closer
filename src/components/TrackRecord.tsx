@@ -33,7 +33,7 @@ const TrackRecord = () => {
             Sales Track Record
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto font-inter">
-            A proven history of exceeding targets and building lasting client relationships. My metrics speak for themselves.
+            A proven history of exceeding targets and building lasting client relationships.
           </p>
         </div>
 
