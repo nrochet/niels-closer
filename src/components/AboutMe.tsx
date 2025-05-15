@@ -22,7 +22,7 @@ const AboutMe = () => {
               With a strong background in high-ticket sales and a passion for real estate investing, I've mastered the art of turning prospects into partners. My career spans real estate, solar sales, and consultative selling, giving me a unique perspective on closing deals that matter.
             </p>
             <p className="text-gray-700 text-lg mb-8 font-inter">
-              My mission is simple yet powerful: to help Airbnb investors scale their portfolios through strategic partnerships and unparalleled sales expertise. I understand the psychology behind high-value decisions and how to guide investors toward profitable opportunities in the short-term rental market.
+              My mission is simple yet powerful: to help Airbnb investors scale their coaching programs, boost revenue, and buy back their time. I understand the psychology behind high-value decisions and how to empower and guide high value leads toward profitable opportunities in the short-term rental market.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
