@@ -31,17 +31,13 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-medium">contact@salescloser.com</p>
+                  <p className="font-medium">carhop.consult-0n@icloud.com</p>
                 </div>
               </div>
 
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
                   <Phone size={18} className="text-resume-blue" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Phone</p>
-                  <p className="font-medium">(555) 123-4567</p>
                 </div>
               </div>
 
