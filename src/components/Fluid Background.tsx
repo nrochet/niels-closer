@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 
 const FluidBackground = ({
@@ -104,7 +103,7 @@ const FluidBackground = ({
     }
     
     // Shader code
-    const baseVertexShader = compileShader(gl.VERTEX_SHADER, `
+    const baseVertexShader = compileShader(gl, gl.VERTEX_SHADER, `
       precision highp float;
       attribute vec2 aPosition;
       varying vec2 vUv;
@@ -123,6 +122,11 @@ const FluidBackground = ({
           gl_Position = vec4(aPosition, 0.0, 1.0);
       }
     `);
+    
+    if (!baseVertexShader) {
+      console.error("Failed to compile base vertex shader");
+      return;
+    }
     
     const displayShaderSource = `
       precision highp float;
@@ -164,7 +168,7 @@ const FluidBackground = ({
       }
     `;
     
-    const blurShader = compileShader(gl.FRAGMENT_SHADER, `
+    const blurShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision mediump float;
       precision mediump sampler2D;
       varying vec2 vUv;
@@ -183,7 +187,7 @@ const FluidBackground = ({
       }
     `);
     
-    const splatShader = compileShader(gl.FRAGMENT_SHADER, `
+    const splatShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision highp float;
       precision highp sampler2D;
       varying vec2 vUv;
@@ -202,7 +206,7 @@ const FluidBackground = ({
       }
     `);
     
-    const advectionShader = compileShader(gl.FRAGMENT_SHADER, `
+    const advectionShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision highp float;
       precision highp sampler2D;
       varying vec2 vUv;
@@ -240,7 +244,7 @@ const FluidBackground = ({
     `, supportLinearFiltering ? null : ["MANUAL_FILTERING"]);
     
     // Other shader definitions
-    const divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
+    const divergenceShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision mediump float;
       precision mediump sampler2D;
       varying highp vec2 vUv;
@@ -267,7 +271,7 @@ const FluidBackground = ({
       }
     `);
     
-    const curlShader = compileShader(gl.FRAGMENT_SHADER, `
+    const curlShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision mediump float;
       precision mediump sampler2D;
       varying highp vec2 vUv;
@@ -287,7 +291,7 @@ const FluidBackground = ({
       }
     `);
     
-    const vorticityShader = compileShader(gl.FRAGMENT_SHADER, `
+    const vorticityShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision highp float;
       precision highp sampler2D;
       varying vec2 vUv;
@@ -319,7 +323,7 @@ const FluidBackground = ({
       }
     `);
     
-    const pressureShader = compileShader(gl.FRAGMENT_SHADER, `
+    const pressureShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision mediump float;
       precision mediump sampler2D;
       varying highp vec2 vUv;
@@ -342,7 +346,7 @@ const FluidBackground = ({
       }
     `);
     
-    const gradientSubtractShader = compileShader(gl.FRAGMENT_SHADER, `
+    const gradientSubtractShader = compileShader(gl, gl.FRAGMENT_SHADER, `
       precision mediump float;
       precision mediump sampler2D;
       varying highp vec2 vUv;
@@ -364,7 +368,8 @@ const FluidBackground = ({
       }
     `);
     
-    function compileShader(type, source, keywords) {
+    // Updated compileShader function with proper error handling
+    function compileShader(gl, type, source, keywords) {
       source = addKeywords(source, keywords);
       const shader = gl.createShader(type);
       gl.shaderSource(shader, source);
@@ -388,7 +393,7 @@ const FluidBackground = ({
       return keywordsString + source;
     }
 
-    // Material and program classes
+    // Material and program classes with improved error handling
     class Material {
       constructor(vertexShader, fragmentShaderSource) {
         this.vertexShader = vertexShader;
@@ -406,17 +411,30 @@ const FluidBackground = ({
         
         let program = this.programs[hash];
         if (program == null) {
-          let fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+          let fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+          if (!fragmentShader) {
+            console.error("Failed to compile fragment shader with keywords:", keywords);
+            return;
+          }
           program = createProgram(this.vertexShader, fragmentShader);
+          if (!program) {
+            console.error("Failed to create program with keywords:", keywords);
+            return;
+          }
           this.programs[hash] = program;
         }
         
         if (program === this.activeProgram) return;
+        
         this.uniforms = getUniforms(program);
         this.activeProgram = program;
       }
       
       bind() {
+        if (!this.activeProgram) {
+          console.error("Cannot bind material: no active program");
+          return;
+        }
         gl.useProgram(this.activeProgram);
       }
     }
@@ -425,35 +443,60 @@ const FluidBackground = ({
       constructor(vertexShader, fragmentShader) {
         this.uniforms = {};
         this.program = createProgram(vertexShader, fragmentShader);
-        this.uniforms = getUniforms(this.program);
+        
+        if (this.program) {
+          this.uniforms = getUniforms(this.program);
+        } else {
+          console.error("Failed to create WebGL program");
+        }
       }
       
       bind() {
+        if (!this.program) {
+          console.error("Cannot bind program: program is null");
+          return;
+        }
         gl.useProgram(this.program);
       }
     }
     
+    // Improved createProgram with better error handling
     function createProgram(vertexShader, fragmentShader) {
+      if (!vertexShader || !fragmentShader) {
+        console.error("Cannot create program: shaders are null");
+        return null;
+      }
+      
       const program = gl.createProgram();
       gl.attachShader(program, vertexShader);
       gl.attachShader(program, fragmentShader);
       gl.linkProgram(program);
       
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error(gl.getProgramInfoLog(program));
+        console.error("Program link error:", gl.getProgramInfoLog(program));
+        gl.deleteProgram(program);
         return null;
       }
       
       return program;
     }
     
+    // Improved getUniforms with better error handling
     function getUniforms(program) {
-      const uniforms = [];
+      if (!program) {
+        console.error("Cannot get uniforms: program is null");
+        return {};
+      }
+      
+      const uniforms = {};
       const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
       
       for (let i = 0; i < uniformCount; i++) {
-        const uniformName = gl.getActiveUniform(program, i).name;
-        uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+        const uniformInfo = gl.getActiveUniform(program, i);
+        if (uniformInfo) {
+          const uniformName = uniformInfo.name;
+          uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+        }
       }
       
       return uniforms;
@@ -469,8 +512,20 @@ const FluidBackground = ({
       return hash;
     }
     
+    // Check if we can proceed with creating programs
+    if (!baseVertexShader || !blurShader || !splatShader || !advectionShader ||
+        !divergenceShader || !curlShader || !vorticityShader || !pressureShader || 
+        !gradientSubtractShader) {
+      console.error("Failed to compile one or more shaders. Cannot proceed.");
+      return;
+    }
+    
     // Creating the programs
     const displayMaterial = new Material(baseVertexShader, displayShaderSource);
+    if (!displayMaterial.activeProgram) {
+      displayMaterial.setKeywords(shading ? ["SHADING"] : []);
+    }
+    
     const blurProgram = new Program(baseVertexShader, blurShader);
     const splatProgram = new Program(baseVertexShader, splatShader);
     const advectionProgram = new Program(baseVertexShader, advectionShader);
@@ -479,6 +534,14 @@ const FluidBackground = ({
     const vorticityProgram = new Program(baseVertexShader, vorticityShader);
     const pressureProgram = new Program(baseVertexShader, pressureShader);
     const gradientSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
+    
+    // Check if all programs were created successfully
+    if (!blurProgram.program || !splatProgram.program || !advectionProgram.program ||
+        !divergenceProgram.program || !curlProgram.program || !vorticityProgram.program ||
+        !pressureProgram.program || !gradientSubtractProgram.program) {
+      console.error("Failed to create one or more WebGL programs. Cannot proceed.");
+      return;
+    }
     
     // Framebuffer setup
     function getResolution(resolution) {
@@ -569,6 +632,13 @@ const FluidBackground = ({
     const rgba = formatRGBA;
     const rg = formatRG;
     const r = formatR;
+    
+    // Check if we have valid format information
+    if (!rgba || !rg || !r) {
+      console.error("Could not find compatible texture formats");
+      return;
+    }
+    
     const filtering = supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
     
     let dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
@@ -587,6 +657,13 @@ const FluidBackground = ({
     
     // Main simulation step
     function step(dt) {
+      if (!curlProgram.program || !vorticityProgram.program || 
+          !divergenceProgram.program || !pressureProgram.program || 
+          !gradientSubtractProgram.program || !advectionProgram.program) {
+        console.error("Missing required programs for simulation step");
+        return;
+      }
+      
       gl.disable(gl.BLEND);
       
       // Curl calculation
@@ -660,14 +737,23 @@ const FluidBackground = ({
       dye.swap();
       
       // Optional: Apply blur for a softer look
-      blurProgram.bind();
-      gl.uniform2f(blurProgram.uniforms.texelSize, dye.texelSizeX, dye.texelSizeY);
-      gl.uniform1i(blurProgram.uniforms.uTexture, dye.read.attach(0));
-      blit(blur);
+      if (blurProgram.program) {
+        blurProgram.bind();
+        gl.uniform2f(blurProgram.uniforms.texelSize, dye.texelSizeX, dye.texelSizeY);
+        gl.uniform1i(blurProgram.uniforms.uTexture, dye.read.attach(0));
+        blit(blur);
+      }
     }
     
     // Render function
     function render() {
+      if (!displayMaterial.activeProgram) {
+        console.error("Cannot render: display material has no active program");
+        gl.clearColor(0, 0, 0, transparent ? 0 : 1);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        return;
+      }
+      
       gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
       
       if (transparent) {
@@ -686,6 +772,11 @@ const FluidBackground = ({
     
     // Create splat effect
     function splat(x, y, dx, dy, color) {
+      if (!splatProgram.program) {
+        console.error("Cannot create splat: splat program is null");
+        return;
+      }
+      
       splatProgram.bind();
       gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
       gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
@@ -730,113 +821,23 @@ const FluidBackground = ({
       setTimeout(autoSplat, 600 + Math.floor(Math.random() * 1200));
     }
     
-    // Mouse interaction
-    function scaleByPixelRatio(input) {
-      const pixelRatio = window.devicePixelRatio || 1;
-      return Math.floor(input * pixelRatio);
-    }
-    
-    let lastX = 0;
-    let lastY = 0;
-    let lastColorChangeTime = 0;
-    let currentColor = colorPalette[0];
-    
-    function handleMouseMove(e) {
-      const posX = scaleByPixelRatio(e.clientX);
-      const posY = scaleByPixelRatio(e.clientY);
-      
-      const now = performance.now();
-      if (now - lastColorChangeTime > 1000 / colorUpdateSpeed) {
-        currentColor = getNextColor();
-        lastColorChangeTime = now;
-      }
-      
-      if (lastX && lastY) {
-        const dx = posX - lastX;
-        const dy = posY - lastY;
-        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-          splat(posX, posY, dx * splatForce, dy * splatForce, currentColor);
-        }
-      }
-      
-      lastX = posX;
-      lastY = posY;
-    }
-    
-    function handleMouseClick(e) {
-      const posX = scaleByPixelRatio(e.clientX);
-      const posY = scaleByPixelRatio(e.clientY);
-      
-      const color = getNextColor();
-      const power = 15;
-      
-      // Create a more explosive splat on click
-      for (let i = 0; i < 5; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const dx = Math.cos(angle) * power * (Math.random() + 0.5);
-        const dy = Math.sin(angle) * power * (Math.random() + 0.5);
-        
-        setTimeout(() => {
-          splat(posX, posY, dx * splatForce, dy * splatForce, color);
-        }, i * 30);
-      }
-    }
-    
-    // Touch interaction
-    function handleTouch(e) {
-      e.preventDefault();
-      const touches = e.targetTouches;
-      for (let i = 0; i < touches.length; i++) {
-        const posX = scaleByPixelRatio(touches[i].clientX);
-        const posY = scaleByPixelRatio(touches[i].clientY);
-        
-        if (i === 0) {
-          if (lastX && lastY) {
-            const dx = posX - lastX;
-            const dy = posY - lastY;
-            if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-              splat(posX, posY, dx * splatForce, dy * splatForce, currentColor);
-            }
-          }
-          
-          lastX = posX;
-          lastY = posY;
-        } else {
-          // Multiple touch points - create random splats around other fingers
-          const color = getNextColor();
-          const dx = Math.random() * 20 - 10;
-          const dy = Math.random() * 20 - 10;
-          splat(posX, posY, dx * splatForce, dy * splatForce, color);
-        }
-      }
-    }
-    
-    function handleTouchEnd() {
-      lastX = 0;
-      lastY = 0;
-    }
-    
     // Initialize the simulation
     updateKeywords();
     
-    // Start with some initial splats
-    for (let i = 0; i < 3; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      const dx = 1000 * (Math.random() - 0.5);
-      const dy = 1000 * (Math.random() - 0.5);
-      const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-      splat(x, y, dx, dy, color);
+    // Start with some initial splats only if all programs are valid
+    if (displayMaterial.activeProgram && splatProgram.program) {
+      for (let i = 0; i < 3; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const dx = 1000 * (Math.random() - 0.5);
+        const dy = 1000 * (Math.random() - 0.5);
+        const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        splat(x, y, dx, dy, color);
+      }
+    
+      // Auto splats at random intervals
+      setTimeout(autoSplat, 1000);
     }
-    
-    // Add event listeners
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('click', handleMouseClick);
-    canvas.addEventListener('touchmove', handleTouch);
-    canvas.addEventListener('touchend', handleTouchEnd);
-    
-    // Auto splats at random intervals
-    setTimeout(autoSplat, 1000);
     
     // Animation loop
     let animationFrameId;
@@ -846,58 +847,27 @@ const FluidBackground = ({
       const dt = Math.min((now - lastTime) / 1000, 0.016);
       lastTime = now;
       
-      step(dt);
-      render();
-      animationFrameId = requestAnimationFrame(animate);
-    }
-    
-    animate();
-    
-    // Resize handling
-    function resize() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-        
-        const simRes = getResolution(simResolution);
-        const dyeRes = getResolution(dyeResolution);
-        
-        velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
-        dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
-        divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-        curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-        pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-        blur = createFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+      try {
+        step(dt);
+        render();
+        animationFrameId = requestAnimationFrame(animate);
+      } catch (error) {
+        console.error("Animation error:", error);
+        cancelAnimationFrame(animationFrameId);
       }
     }
     
-    window.addEventListener('resize', resize);
+    try {
+      animate();
+    } catch (error) {
+      console.error("Failed to start animation:", error);
+    }
     
     // Cleanup function
     return () => {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
-      
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('click', handleMouseClick);
-      canvas.removeEventListener('touchmove', handleTouch);
-      canvas.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('resize', resize);
-      
-      // Delete WebGL resources
-      gl.deleteProgram(displayMaterial.activeProgram);
-      gl.deleteProgram(blurProgram.program);
-      gl.deleteProgram(splatProgram.program);
-      gl.deleteProgram(advectionProgram.program);
-      gl.deleteProgram(divergenceProgram.program);
-      gl.deleteProgram(curlProgram.program);
-      gl.deleteProgram(vorticityProgram.program);
-      gl.deleteProgram(pressureProgram.program);
-      gl.deleteProgram(gradientSubtractProgram.program);
     };
   }, [canvasRef, simResolution, dyeResolution, densityDissipation, velocityDissipation, pressure, pressureIterations, curl, splatRadius, splatForce, shading, colorUpdateSpeed, colorPalette, transparent]);
   
