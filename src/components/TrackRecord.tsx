@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+
 const TrackRecord = () => {
   const achievements = [{
     metric: "98%",
@@ -36,7 +37,7 @@ const TrackRecord = () => {
           </p>
         </div>
 
-        {/* Achievements Carousel */}
+        {/* Achievements Carousel - without navigation arrows */}
         <Carousel className="w-full max-w-5xl mx-auto">
           <CarouselContent>
             {achievements.map((item, index) => <CarouselItem key={index} className="md:basis-1/3">
@@ -51,8 +52,6 @@ const TrackRecord = () => {
                 </div>
               </CarouselItem>)}
           </CarouselContent>
-          <CarouselPrevious className="left-0" />
-          <CarouselNext className="right-0" />
         </Carousel>
 
         {/* Companies worked with */}
