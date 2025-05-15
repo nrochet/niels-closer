@@ -47,7 +47,7 @@ const AboutMe = () => {
                   <Calendar size={20} className="text-resume-blue" />
                 </div>
                 <h3 className="font-montserrat font-bold text-resume-charcoal">5+ Years</h3>
-                <p className="text-gray-600 text-center text-sm mt-2">Sales experience</p>
+                <p className="text-gray-600 text-center text-sm mt-2">High-Ticket Sales experience</p>
               </div>
             </div>
           </div>
