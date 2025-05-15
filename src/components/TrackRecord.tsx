@@ -22,7 +22,7 @@ const TrackRecord = () => {
     name: "SGI Brokers",
     logo: "https://github.com/nrochet/niels-closer/blob/main/src/company%20logos/SGI%20brokers.png?raw=true"
   }, {
-    name: "Company 3",
+    name: "Ground Matrix",
     logo: "https://placehold.co/200x100?text=Company+Logo"
   }];
   return <section id="track-record" className="py-24 bg-resume-lightgrey">
