@@ -5,7 +5,6 @@ import HeroBanner from "@/components/HeroBanner";
 import AboutMe from "@/components/AboutMe";
 import TrackRecord from "@/components/TrackRecord";
 import WhyMe from "@/components/WhyMe";
-import VideoIntro from "@/components/VideoIntro";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
