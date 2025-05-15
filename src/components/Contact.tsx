@@ -33,7 +33,7 @@ const Contact = () => {
                 <div className="w-12 h-12 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
                   <CalendarClock size={24} className="text-resume-blue" />
                 </div>
-                <h3 className="text-xl font-bold">Schedule a Call</h3>
+                <h3 className="text-xl font-bold">Ready to scale your coaching enrollments?</h3>
               </div>
               <p className="text-gray-600 mb-6">Book a 30-minute consultation to discuss your revenue goals and how I can help you achieve them.</p>
               <Button 
