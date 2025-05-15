@@ -23,7 +23,7 @@ const TrackRecord = () => {
     logo: "https://github.com/nrochet/niels-closer/blob/main/src/company%20logos/SGI%20brokers.png?raw=true"
   }, {
     name: "Ground Matrix",
-    logo: "https://placehold.co/200x100?text=Company+Logo"
+    logo: "https://raw.githubusercontent.com/nrochet/niels-closer/refs/heads/main/src/company%20logos/Ground%20Matrix.webp"
   }];
   return <section id="track-record" className="py-24 bg-resume-lightgrey">
       <div className="container px-4 sm:px-6">
