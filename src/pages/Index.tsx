@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
@@ -7,7 +6,7 @@ import TrackRecord from "@/components/TrackRecord";
 import WhyMe from "@/components/WhyMe";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-// Remove the FluidBackground import entirely
+import ParticlesBackground from "@/components/ParticlesBackground";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Index = () => {
@@ -40,7 +39,13 @@ const Index = () => {
 
   return (
     <div className="bg-gradient-to-br from-purple-900 via-blue-800 to-indigo-900 min-h-screen">
-      {/* Remove the FluidBackground component */}
+      <ParticlesBackground 
+        particleColor="#a193f7" 
+        particleDensity={60}
+        minSize={0.6}
+        maxSize={2.2}
+        speed={2.5}
+      />
       <Header />
       <HeroBanner />
       <AboutMe />
