@@ -11,6 +11,10 @@ const Contact = () => {
     console.log('Form submitted');
   };
 
+  const openCalendly = () => {
+    window.open('https://calendly.com/nsrochet/30min', '_blank');
+  };
+
   return (
     <section id="contact" className="py-24 bg-white">
       <div className="container px-4 sm:px-6">
@@ -32,7 +36,10 @@ const Contact = () => {
                 <h3 className="text-xl font-bold">Schedule a Call</h3>
               </div>
               <p className="text-gray-600 mb-6">Book a 30-minute consultation to discuss your investment goals and how I can help you achieve them.</p>
-              <Button className="w-full py-6 bg-resume-blue hover:bg-resume-blue/90 text-white font-semibold text-base">
+              <Button 
+                className="w-full py-6 bg-resume-blue hover:bg-resume-blue/90 text-white font-semibold text-base"
+                onClick={openCalendly}
+              >
                 Open My Calendar
               </Button>
             </div>
@@ -119,3 +126,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
