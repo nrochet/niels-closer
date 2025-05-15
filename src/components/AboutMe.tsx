@@ -1,7 +1,8 @@
 import React from 'react';
 import { User, Star, Calendar } from 'lucide-react';
 const AboutMe = () => {
-  return <section id="about" className="py-24 bg-white">
+  return (
+    <section id="about" className="py-24 bg-white">
       <div className="container px-4 sm:px-6">
         <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-center">
           <div className="w-full md:w-2/5" data-animate="fade-in">
@@ -52,5 +53,6 @@ const AboutMe = () => {
         </div>
       </div>
     </section>;
+  );
 };
 export default AboutMe;
