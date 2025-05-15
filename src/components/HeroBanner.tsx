@@ -27,13 +27,12 @@ const HeroBanner = () => {
           <h1 className="font-montserrat font-bold text-4xl sm:text-5xl md:text-6xl mb-6">
             High-Ticket Sales Closer
             <span className="block text-xl sm:text-2xl md:text-3xl mt-2 text-resume-lightblue">
-              for Airbnb Investments
+              for All Your Airbnb Programs
             </span>
           </h1>
           
           <p className="font-inter text-lg sm:text-xl mb-8 text-white/90 max-w-2xl">
-            Turning conversations into conversions for short-term rental success. 
-            Specialized in helping investors scale their Airbnb portfolios.
+            Turning conversations into conversions for short-term rental success.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
