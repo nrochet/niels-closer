@@ -1,8 +1,7 @@
 
 import React, { useId, useState, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import type { Container, SingleOrMultiple } from "@tsparticles/engine";
+import Particles from "@tsparticles/react";
+import { type Engine, type Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
 
@@ -30,33 +29,31 @@ const ParticlesBackground = ({
   transparent = true,
 }: ParticlesBackgroundProps) => {
   const [init, setInit] = useState(false);
-  const controls = useAnimation();
   const generatedId = useId();
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    const initializeParticles = async () => {
+      try {
+        const engine = await loadSlim();
+        if (engine) {
+          setInit(true);
+        }
+      } catch (error) {
+        console.error("Error initializing particles:", error);
+      }
+    };
+
+    initializeParticles();
   }, []);
 
   const particlesLoaded = async (container?: Container) => {
     if (container) {
-      controls.start({
-        opacity: 1,
-        transition: {
-          duration: 1.2,
-        },
-      });
+      console.log("Particles container loaded");
     }
   };
 
   return (
-    <motion.div 
-      animate={controls} 
-      className={cn("opacity-0 fixed top-0 left-0 w-full h-full z-0 pointer-events-none", className)}
-    >
+    <div className={cn("fixed top-0 left-0 w-full h-full z-0 pointer-events-none", className)}>
       {init && (
         <Particles
           id={id || generatedId}
@@ -83,7 +80,7 @@ const ParticlesBackground = ({
                   enable: true,
                   mode: "repulse",
                 },
-                resize: true as any,
+                resize: true,
               },
               modes: {
                 push: {
@@ -98,18 +95,9 @@ const ParticlesBackground = ({
             particles: {
               color: {
                 value: particleColor,
-                animation: {
-                  h: {
-                    enable: true,
-                    speed: 10,
-                    sync: false,
-                  },
-                },
               },
               links: {
-                color: {
-                  value: "#ffffff",
-                },
+                color: "#ffffff",
                 distance: 150,
                 enable: true,
                 opacity: 0.4,
@@ -128,8 +116,7 @@ const ParticlesBackground = ({
               number: {
                 density: {
                   enable: true,
-                  width: 400,
-                  height: 400,
+                  area: 800,
                 },
                 value: particleDensity,
               },
@@ -165,7 +152,7 @@ const ParticlesBackground = ({
           }}
         />
       )}
-    </motion.div>
+    </div>
   );
 };
 
