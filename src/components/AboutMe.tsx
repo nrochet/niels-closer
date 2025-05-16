@@ -47,7 +47,7 @@ const AboutMe = () => {
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <Calendar size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">Full-Sales Cycle Support</h3>
+                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">Full Sales Cycle Support</h3>
                 <p className="text-gray-600 text-sm text-left">Build and optimize every step of your high-ticket sales funnel with scalable systems from lead qualification to close.</p>
               </div>
             </div>
