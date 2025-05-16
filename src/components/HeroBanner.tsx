@@ -27,7 +27,7 @@ const HeroBanner = () => {
           <h1 className="font-montserrat font-bold text-4xl sm:text-5xl md:text-6xl mb-6">
             High-Ticket Sales Closer
             <span className="block text-xl sm:text-2xl md:text-3xl mt-2 text-resume-lightblue">
-              for All Your Airbnb Programs
+              For All Your Airbnb Programs
             </span>
           </h1>
           
