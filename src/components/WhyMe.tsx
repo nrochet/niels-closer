@@ -80,20 +80,20 @@ const WhyMe = () => {
             <CardContent className="p-8">
               <div className="prose prose-lg text-white max-w-none">
                 <p className="mb-6 text-blue-50 leading-relaxed">
-                  My experience in high-ticket solar sales translates perfectly to the Airbnb investment space. Both require a deep understanding of ROI, financing options, and long-term value creation.
+                  Real estate investing demands more than enthusiasm. It requires a deep understanding of ROI, financing, and long-term value creation. In the world of high-ticket sales, having the right closer can mean the difference between enrolling serious investors and leaving revenue on the table.
                 </p>
                 
                 <p className="mb-6 text-blue-50 leading-relaxed">
-                  In the competitive world of short-term rentals, having a skilled closer can mean the difference between acquiring premium properties and missing out on opportunities. I specialize in:
+                  A skilled closer doesn’t just convert leads, they drive growth, amplify your impact, and turn interest into committed investments. That’s where I come in. I specialize in:
                 </p>
 
                 <ul className="space-y-4 list-none pl-0 mb-6">
                   {[
                     'Converting high-net-worth prospects into investment partners',
                     'Negotiating favorable terms with property owners',
-                    'Creating compelling presentations that showcase potential returns',
-                    'Understanding market trends and property valuation',
-                    'Building a consultative relationship that extends beyond the sale'
+                    'Creating compelling presentations that showcase strong potential returns',
+                    'Analyzing market trends and property valuation',
+                    'Building long-term relationships that extend beyond the sale'
                   ].map((item, index) => (
                     <li key={index} className="flex items-start space-x-3">
                       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center mt-1">
@@ -107,7 +107,7 @@ const WhyMe = () => {
                 </ul>
                 
                 <p className="mt-6 text-blue-50 leading-relaxed">
-                  What sets me apart is my holistic approach to Airbnb investing. I don't just close deals—I help create sustainable, profitable investment strategies tailored to each client's goals.
+                What sets me apart is my holistic approach to Airbnb investing. I don’t just close deals—I help craft sustainable, high-performing investment strategies tailored to each client’s goals.
                 </p>
               </div>
             </CardContent>
