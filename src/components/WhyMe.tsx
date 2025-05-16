@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
 const WhyMe = () => {
@@ -35,7 +34,7 @@ const WhyMe = () => {
           const progressBars = document.querySelectorAll('.progress-bar');
           progressBars.forEach((bar, index) => {
             setTimeout(() => {
-              (bar as HTMLElement).style.width = `${skills[index].percentage}%`;
+              (bar as HTMLElement).style.width = '100%';
             }, 300 + index * 150);
           });
         }, 500);
@@ -117,11 +116,8 @@ const WhyMe = () => {
           <div className="space-y-8" data-animate="fade-in" ref={skillsRef}>
             {skills.map((skill, index) => (
               <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/15">
-                <div className="flex justify-between items-center mb-3">
-                  <div className="flex items-center space-x-3">
-                    <Badge className="bg-white text-resume-blue">{skill.percentage}%</Badge>
-                    <h3 className="text-white font-semibold text-lg">{skill.title}</h3>
-                  </div>
+                <div className="flex items-center mb-3">
+                  <h3 className="text-white font-semibold text-lg">{skill.title}</h3>
                 </div>
                 <div className="w-full bg-blue-900/30 rounded-full h-3 mb-4 overflow-hidden">
                   <div 
