@@ -80,11 +80,11 @@ const WhyMe = () => {
             <CardContent className="p-8">
               <div className="prose prose-lg text-white max-w-none">
                 <p className="mb-6 text-blue-50 leading-relaxed">
-                  Real estate investing demands more than enthusiasm. It requires a deep understanding of ROI, financing, and long-term value creation. In the world of high-ticket sales, having the right closer can mean the difference between enrolling serious investors and leaving revenue on the table.
+                  Real estate investing demands more than enthusiasm. It requires a deep understanding of ROI, financing, and long-term value creation. In the world of high-ticket sales, the right closer can mean the difference between enrolling serious investors and leaving revenue on the table.
                 </p>
                 
                 <p className="mb-6 text-blue-50 leading-relaxed">
-                  A skilled closer doesn’t just convert leads, they drive growth, amplify your impact, and turn interest into committed investments. That’s where I come in. I specialize in:
+                  Top closers don’t just convert leads, they drive growth, amplify your impact, and turn interest into committed investments. That’s where I come in. I specialize in:
                 </p>
 
                 <ul className="space-y-4 list-none pl-0 mb-6">
