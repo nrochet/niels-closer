@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { User, Star, Calendar } from 'lucide-react';
 
@@ -30,24 +31,24 @@ const AboutMe = () => {
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <User size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-center sm:text-left">High-Ticket Sales Expertise</h3>
-                <p className="text-gray-600 text-sm mt-auto text-center sm:text-left">5+ years closing deals priced $20k-$70k through ROI-driven consultations.</p>
+                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">High-Ticket Sales Expertise</h3>
+                <p className="text-gray-600 text-sm text-left">5+ years closing deals priced $20k-$70k through ROI-driven consultations.</p>
               </div>
 
               <div className="flex flex-col p-6 bg-resume-lightgrey rounded-lg shadow-sm transition-all hover:shadow-md h-full">
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <Star size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-center sm:text-left">Results You Can Measure</h3>
-                <p className="text-gray-600 text-sm mt-auto text-center sm:text-left">Boost your enrollments and revenue in under than 90 days with proven sales strategies.</p>
+                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">Results You Can Measure</h3>
+                <p className="text-gray-600 text-sm text-left">Boost your enrollments and revenue in under than 90 days with proven sales strategies.</p>
               </div>
 
               <div className="flex flex-col p-6 bg-resume-lightgrey rounded-lg shadow-sm transition-all hover:shadow-md h-full">
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <Calendar size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-center sm:text-left">Full-Sales Cycle Support</h3>
-                <p className="text-gray-600 text-sm mt-auto text-center sm:text-left">Build and optimize every step of your high-ticket sales funnel with scalable systems from lead qualification to close.</p>
+                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">Full-Sales Cycle Support</h3>
+                <p className="text-gray-600 text-sm text-left">Build and optimize every step of your high-ticket sales funnel with scalable systems from lead qualification to close.</p>
               </div>
             </div>
           </div>
