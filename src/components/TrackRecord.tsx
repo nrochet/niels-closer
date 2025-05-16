@@ -83,7 +83,7 @@ const TrackRecord = () => {
                 <span className="text-resume-blue text-2xl font-bold">⏱️</span>
               </div>
               <h3 className="text-xl font-semibold mb-2">Average Deal Cycle Time</h3>
-              <p className="text-3xl font-bold text-resume-blue">15 days</p>
+              <p className="text-3xl font-bold text-resume-blue">29 days</p>
               <p className="text-gray-500 mt-2 text-center">Efficient closing process</p>
             </div>
           </div>
