@@ -107,7 +107,7 @@ const WhyMe = () => {
                 </ul>
                 
                 <p className="mt-6 text-blue-50 leading-relaxed">
-                What sets me apart is my holistic approach to Airbnb investing. I don’t just close deals—I help craft sustainable, high-performing investment strategies tailored to each of my client’s goals.
+                What sets me apart is my holistic approach to Airbnb investing. I don’t just close deals: I help craft sustainable, high-performing investment strategies tailored to each of my client’s goals.
                 </p>
               </div>
             </CardContent>
