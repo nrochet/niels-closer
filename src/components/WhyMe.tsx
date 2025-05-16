@@ -84,7 +84,7 @@ const WhyMe = () => {
                 </p>
                 
                 <p className="mb-6 text-blue-50 leading-relaxed">
-                  Top closers don’t just convert leads, they drive growth, amplify your impact, and turn interest into committed investments. That’s where I come in. I specialize in:
+                  Top closers don’t just convert leads. They drive growth, amplify your impact, and turn interest into committed investments. That’s where I come in. I specialize in:
                 </p>
 
                 <ul className="space-y-4 list-none pl-0 mb-6">
