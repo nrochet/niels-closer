@@ -8,7 +8,7 @@ const TrackRecord = () => {
     description: "Client Satisfaction Rate",
     detail: "Maintaining exceptional client relationships"
   }, {
-    metric: "62%",
+    metric: "52%",
     description: "Conversion Rate",
     detail: "Double the industry average performance"
   }, {
