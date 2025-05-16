@@ -21,10 +21,10 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-6 text-resume-charcoal">
-              Let's Connect
+              How to get in touch
             </h2>
             <p className="text-gray-600 mb-8 font-inter max-w-lg">
-              Ready to take your Airbnb investment portfolio to the next level? Let's discuss how my high-ticket closing expertise can help you secure the best properties and partnerships.
+              Schedule some time by clicking on my calendar link below. Let's discuss how my high-ticket closing expertise can help you secure more clients and scale your operations.
             </p>
 
             {/* Schedule a call box - enhanced and more prominent */}
@@ -33,7 +33,7 @@ const Contact = () => {
                 <div className="w-12 h-12 rounded-full bg-resume-blue/10 flex items-center justify-center mr-4">
                   <CalendarClock size={24} className="text-resume-blue" />
                 </div>
-                <h3 className="text-xl font-bold">Ready to scale your coaching enrollments?</h3>
+                <h3 className="text-xl font-bold">Ready to scale your coaching enrollments and boost your revenue?</h3>
               </div>
               <p className="text-gray-600 mb-6">Book a 30-minute consultation to discuss your revenue goals and how I can help you achieve them.</p>
               <Button 
