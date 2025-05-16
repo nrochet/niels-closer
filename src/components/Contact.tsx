@@ -1,14 +1,72 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, User, CalendarClock } from 'lucide-react';
+import { useToast } from "@/components/ui/use-toast";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted');
+    setIsSubmitting(true);
+    
+    try {
+      const templateParams = {
+        to_email: 'nielsrochet@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        from_phone: formData.phone,
+        message: formData.message,
+      };
+
+      await emailjs.send(
+        'service_0cnssqc', // Replace with your EmailJS service ID in production
+        'template_whdljuo', // Replace with your EmailJS template ID in production
+        templateParams,
+        'your_user_id' // Replace with your EmailJS user ID in production
+      );
+      
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again later or contact me directly at nielsrochet@gmail.com",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const openCalendly = () => {
@@ -61,6 +119,8 @@ const Contact = () => {
                     placeholder="John Smith"
                     className="pl-10"
                     required
+                    value={formData.name}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -79,6 +139,8 @@ const Contact = () => {
                     placeholder="john@example.com"
                     className="pl-10"
                     required
+                    value={formData.email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -95,6 +157,8 @@ const Contact = () => {
                     id="phone"
                     placeholder="(555) 123-4567"
                     className="pl-10"
+                    value={formData.phone}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -108,14 +172,17 @@ const Contact = () => {
                   placeholder="Tell me about your investment goals..."
                   rows={4}
                   required
+                  value={formData.message}
+                  onChange={handleChange}
                 />
               </div>
 
               <Button 
                 type="submit" 
                 className="w-full bg-resume-blue hover:bg-resume-blue/90 text-white py-6"
+                disabled={isSubmitting}
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>
@@ -126,4 +193,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
