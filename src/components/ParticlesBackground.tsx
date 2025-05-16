@@ -1,7 +1,5 @@
-
 import React, { useId, useState, useEffect } from "react";
 import Particles from "@tsparticles/react";
-import { type Engine, type Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +32,7 @@ const ParticlesBackground = ({
   useEffect(() => {
     const initializeParticles = async () => {
       try {
+        // loadSlim returns the engine
         const engine = await loadSlim();
         if (engine) {
           setInit(true);
@@ -46,7 +45,7 @@ const ParticlesBackground = ({
     initializeParticles();
   }, []);
 
-  const particlesLoaded = async (container?: Container) => {
+  const particlesLoaded = async (container?: any) => {
     if (container) {
       console.log("Particles container loaded");
     }
@@ -80,7 +79,11 @@ const ParticlesBackground = ({
                   enable: true,
                   mode: "repulse",
                 },
-                resize: true,
+                resize: {
+                  enable: true,
+                  factor: 1,
+                  value: 1,
+                },
               },
               modes: {
                 push: {
@@ -116,7 +119,9 @@ const ParticlesBackground = ({
               number: {
                 density: {
                   enable: true,
-                  area: 800,
+                  height: 800,
+                  width: 800,
+                  value: particleDensity,
                 },
                 value: particleDensity,
               },
