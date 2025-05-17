@@ -39,10 +39,10 @@ const Contact = () => {
       };
 
       await emailjs.send(
-        'service_0cnssqc', // Replace with your EmailJS service ID in production
-        'template_whdljuo', // Replace with your EmailJS template ID in production
+        'service_3gacs09', // Replace with your EmailJS service ID in production
+        'template_78bccj5', // Replace with your EmailJS template ID in production
         templateParams,
-        'your_user_id' // Replace with your EmailJS user ID in production
+        '8EKHOF6VR_Z8yiEpi' // Replace with your EmailJS user ID in production
       );
       
       toast({
