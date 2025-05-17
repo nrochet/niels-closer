@@ -29,7 +29,7 @@ const AboutMe = () => {
                 <div className="w-10 h-10 bg-resume-blue/10 rounded-full flex items-center justify-center mb-4">
                   <User size={20} className="text-resume-blue" />
                 </div>
-                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">Sales Expertise</h3>
+                <h3 className="font-montserrat font-bold text-resume-charcoal mb-2 text-left">High-Ticket Sales Expertise</h3>
                 <p className="text-gray-600 text-sm text-left">5+ years closing deals priced $20k-$70k through ROI-driven consultations.</p>
               </div>
 
