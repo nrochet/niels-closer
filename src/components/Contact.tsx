@@ -82,7 +82,7 @@ const Contact = () => {
               How to get in touch
             </h2>
             <p className="text-gray-600 mb-8 font-inter max-w-lg">
-              Schedule some time by clicking on my calendar link below. Let's discuss how my high-ticket closing expertise can help you secure more clients and scale your operations.
+              Schedule some time by clicking on my calendar link below. Let's discuss how my high-ticket closing expertise can help you secure more clients, scale your operations, and grow your revenue.
             </p>
 
             {/* Schedule a call box - enhanced and more prominent */}
