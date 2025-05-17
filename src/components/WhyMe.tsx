@@ -90,7 +90,7 @@ const WhyMe = () => {
                 <ul className="space-y-4 list-none pl-0 mb-6">
                   {[
                     'Converting high-net-worth prospects into long-term clients',
-                    'Creating compelling presentations that showcase accurate potential investment returns',
+                    'Creating compelling presentations that showcase accurate investment returns',
                     'Analyzing market trends and property valuation for my clients',
                     'Building long-term relationships that extend beyond the sale'
                   ].map((item, index) => (
