@@ -24,7 +24,7 @@ const AboutMe = () => {
             </p>
            <p className="text-gray-700 text-lg mb-6 font-inter">
             
-             Born and raised in France, I came to the U.S. in pursuit of the American dream, earning a world-class education at one of the most prestigious institutions in the nation, UC Berkeley. Yet the most valuable lesson wasn’t in the lecture halls. It was realizing that the traditional corporate path I was following caps one’s true potential. That insight led me to forge my own path, one defined by exponential growth, freedom, and meaningful impact.
+             Born and raised in France, I came to the U.S. in pursuit of the American dream, earning a world-class education at one of the most prestigious institutions in the nation, UC Berkeley. Yet the most valuable lesson wasn’t in the lecture halls. It was realizing that the traditional corporate path I was following caps one’s true potential. Over the years, that insight led me to forge my own path: one defined by exponential growth, freedom, and meaningful impact.
             </p>
             <p className="text-gray-700 text-lg mb-6 font-inter">
             Today, my mission is simple yet powerful: to help Airbnb investors scale their coaching programs, boost revenue, and buy back their time. I understand the psychology behind high-value decisions and how to guide high-intent leads toward profitable opportunities in the short-term rental market.
