@@ -24,10 +24,12 @@ const AboutMe = () => {
             </p>
            <p className="text-gray-700 text-lg mb-6 font-inter">
             
-             Born and raised in France, I came to the U.S. in pursuit of the American dream, earning a world-class education at one of the most prestigious institutions in the nation, UC Berkeley. Yet the most valuable lesson wasn’t in the lecture halls. It was realizing that the traditional corporate path I was following caps one’s true potential. Over the years, that insight led me to forge my own path: one defined by exponential growth, freedom, and meaningful impact.
+             Born and raised in France, I came to the U.S. in pursuit of the American dream, earning a world-class education at one of the most prestigious institutions in the nation, UC Berkeley. Yet the most valuable lesson wasn’t in the lecture halls. It was realizing that the traditional corporate path I was following caps one’s true potential.
             </p>
-        
-            <p className="text-gray-700 text-lg mb-8 font-inter"> My mission is simple yet powerful: to help Airbnb investors scale their coaching programs, boost revenue, and buy back their time. I understand the psychology behind high-value decisions and how to empower and guide high value leads toward profitable opportunities in the short-term rental market.</p>
+           <p className="text-gray-700 text-lg mb-8 font-inter">
+           Over the years, that insight led me to forge my own path: one defined by exponential growth, freedom, and meaningful impact.
+            </p>
+            <p className="text-gray-700 text-lg mb-8 font-inter"> My mission is simple yet powerful: to help Airbnb investors scale their coaching programs, boost revenue, and buy back their time. I understand the psychology behind high-value decisions and how to empower and guide high-intent leads toward profitable opportunities in the short-term rental market.</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
               <div className="flex flex-col p-6 bg-resume-lightgrey rounded-lg shadow-sm transition-all hover:shadow-md h-full">
