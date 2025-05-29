@@ -22,10 +22,7 @@ const AboutMe = () => {
   
               With a strong background and a passion for real estate investing and sales, I’ve mastered the art of turning prospects into partners, navigating complex sales cycles and building trust at every stage.
             </p>
-           <p className="text-gray-700 text-lg mb-6 font-inter">
-            
-             Born and raised in France, I came to the U.S. in pursuit of the American dream, earning a world-class education at one of the most prestigious institutions in the nation, UC Berkeley. Yet the most valuable lesson wasn’t in the lecture halls. It was realizing that the traditional corporate path I was following caps one’s true potential.
-            </p>
+           <p className="text-gray-700 text-lg mb-6 font-inter">Born and raised in France, I moved to the U.S. in pursuit of the American dream, earning a world-class education at one of the most prestigious institutions in the nation, UC Berkeley. Yet the most valuable lesson wasn’t in the lecture halls. It was realizing that the traditional corporate path I was following caps one’s true potential.</p>
            <p className="text-gray-700 text-lg mb-8 font-inter">
            Over the years, that insight led me to forge my own path: one defined by exponential growth, freedom, and meaningful impact.
             </p>
