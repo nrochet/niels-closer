@@ -26,7 +26,7 @@ const AboutMe = () => {
            <p className="text-gray-700 text-lg mb-8 font-inter">
            Over the years, that insight led me to forge my own path: one defined by exponential growth, freedom, and meaningful impact.
             </p>
-            <p className="text-gray-700 text-lg mb-8 font-inter">Today, my mission is simple yet powerful: to help Airbnb investors scale their coaching programs, boost revenue, and buy back their time. I understand the psychology behind high-value decisions and how to empower and guide high-intent leads toward profitable opportunities in the short-term rental market.</p>
+            <p className="text-gray-700 text-lg mb-8 font-inter">Today, my mission is simple yet powerful: to help real estate investors scale their coaching programs, boost revenue, and buy back their time. I understand the psychology behind high-value decisions and how to empower and guide high-intent leads toward profitable opportunities in the short-term rental market.</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
               <div className="flex flex-col p-6 bg-resume-lightgrey rounded-lg shadow-sm transition-all hover:shadow-md h-full">
