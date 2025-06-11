@@ -4,9 +4,9 @@ import { Progress } from "@/components/ui/progress";
 const WhyMe = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const skills = [{
-    title: "Airbnb Market Expertise",
+    title: "Real Estate Market Expertise",
     percentage: 95,
-    description: "Comprehensive understanding of the short-term rental marketplace and its investment potential."
+    description: "Comprehensive understanding of the short-term rental market and the broader real estate landscape, including its investment potential."
   }, {
     title: "Negotiation Skills",
     percentage: 90,
