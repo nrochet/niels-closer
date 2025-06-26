@@ -77,7 +77,7 @@ const TrackRecord = () => {
                 <span className="text-resume-blue text-2xl font-bold">$</span>
               </div>
               <h3 className="text-xl font-semibold mb-2">Average Deal Size</h3>
-              <p className="text-3xl font-bold text-resume-blue">$30,500</p>
+              <p className="text-3xl font-bold text-resume-blue">$60,500</p>
               <p className="text-gray-500 mt-2 text-center">Specializing in high-ticket opportunities</p>
             </div>
           </div>
